@@ -13,4 +13,13 @@ SFTP Extension not showing properly:
 
 First Ensure that we are connected to FortiClient.
 
+______________________________________
 
+Before we get started with the environment we need to make sure that the requirements.txt is already uploaded on the cluster.
+
+______________________________________
+
+How to download data over the cluster?
+- Using datasets library
+
+______________________________________
