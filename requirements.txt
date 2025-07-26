@@ -53,5 +53,6 @@ transformers==4.53.2
 typing_extensions==4.12.2
 tzdata==2025.2
 urllib3==2.5.0
+winfcntl==1.1.9
 xxhash==3.5.0
 yarl==1.20.1

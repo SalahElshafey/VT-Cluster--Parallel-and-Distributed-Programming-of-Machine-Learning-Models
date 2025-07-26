@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """
+REMOVE ME
 Cross-platform interactive cluster shell via Paramiko – *refactored*.
 
 Key improvements
