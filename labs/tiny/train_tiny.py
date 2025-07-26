@@ -2,64 +2,62 @@
 Tiny (<1 M params) text classifier with HuggingFace Trainer + torchrun.
 """
 
-import os, argparse
-import torch                                   # already there – keep
+"""
+Tiny (<1 M params) text classifier with HuggingFace Trainer + torchrun.
+"""
 
-# ───── Monkey-patch Accelerate for CPU-only nodes ─────
-if not torch.cuda.is_available():              # no GPUs on the cluster
+import os, argparse, torch
+
+# ── CPU-only monkey-patch so Accelerate won’t call torch.cpu.set_device() ──
+if not torch.cuda.is_available():
     try:
-        import torch.cpu                       # <= exists in PyTorch 2.x
-        torch.cpu.set_device = lambda *_: None # stub so Accelerate is happy
+        import torch.cpu
+        torch.cpu.set_device = lambda *_: None
     except ImportError:
         pass
-# ───────────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────
 from datasets import load_dataset
 from transformers import (
     BertConfig, BertForSequenceClassification,
-    AutoTokenizer, Trainer, TrainingArguments
+    AutoTokenizer, Trainer, TrainingArguments,
 )
 
+# ---------- helpers -------------------------------------------------------
 def build_tokenizer(cache_root):
-    # 8 k-token WordPiece vocab trained once & reused
-    tok_name = "google/bert_uncased_L-2_H-128_A-2"   # use its 8 k vocab only
-    return AutoTokenizer.from_pretrained(
-        tok_name, cache_dir=os.path.join(cache_root, "tok")
-    )
+    tok_name = "google/bert_uncased_L-2_H-128_A-2"      # 8 k-token vocab
+    return AutoTokenizer.from_pretrained(tok_name,
+                                         cache_dir=os.path.join(cache_root, "tok"))
 
-def tiny_config(vocab):
+def tiny_config(vocab_size: int) -> BertConfig:
     return BertConfig(
-        vocab_size=vocab,
-        hidden_size=64,
-        num_hidden_layers=2,
-        num_attention_heads=2,
-        intermediate_size=256,
-        max_position_embeddings=256,
+        vocab_size=vocab_size, hidden_size=64,
+        num_hidden_layers=2, num_attention_heads=2,
+        intermediate_size=256, max_position_embeddings=256,
     )
 
-def main():
+# ---------- main ----------------------------------------------------------
+def main() -> None:
     p = argparse.ArgumentParser()
     p.add_argument("--epochs", type=int, default=3)
-    p.add_argument("--subset", type=int, default=2000,  # tiny slice
-                   help="training rows to keep")
-    p.add_argument("--batch", type=int, default=16)
-    p.add_argument("--out", default="./tiny_out")
+    p.add_argument("--subset", type=int, default=2000)
+    p.add_argument("--batch",  type=int, default=16)
+    p.add_argument("--out",    default="./tiny_out")
     p.add_argument("--local_rank", type=int,
                    default=int(os.getenv("LOCAL_RANK", 0)))
     args = p.parse_args()
 
-    # ------ distributed initialisation -----------------
+    # Initialise torch.distributed so Trainer aggregates gradients
     torch.distributed.init_process_group(
         backend="gloo" if not torch.cuda.is_available() else "nccl",
-        rank=args.local_rank,
-        world_size=int(os.getenv("WORLD_SIZE", 1)),
+        rank=args.local_rank, world_size=int(os.getenv("WORLD_SIZE", 1)),
     )
 
     cache_root = os.environ.setdefault("HF_HOME",
                                        os.path.join(os.getcwd(), ".hf_cache"))
     os.makedirs(cache_root, exist_ok=True)
 
-    ds = load_dataset("ag_news",
-                      cache_dir=os.path.join(cache_root, "ds"))
+    # ---------- data ----------
+    ds = load_dataset("ag_news", cache_dir=os.path.join(cache_root, "ds"))
     ds["train"] = ds["train"].select(range(args.subset))
     ds["test"]  = ds["test"].select(range(512))
 
@@ -70,13 +68,13 @@ def main():
     ds_tok.set_format("torch",
                       columns=["input_ids", "attention_mask", "labels"])
 
-    num_labels = ds_tok["train"].features["labels"].num_classes   # == 4
-    # tell the config how many classes we have
-    cfg  = tiny_config(tok.vocab_size)
-    cfg.num_labels = num_labels        # <-- key line
-    model = BertForSequenceClassification(cfg)  # no extra kwargs
+    # ---------- model ----------
+    cfg = tiny_config(tok.vocab_size)
+    cfg.num_labels = ds_tok["train"].features["labels"].num_classes  # =4
+    model = BertForSequenceClassification(cfg)
 
-    ta = TrainingArguments(
+    # ---------- training ----------
+    tr_args = TrainingArguments(
         output_dir=args.out,
         per_device_train_batch_size=args.batch,
         per_device_eval_batch_size=args.batch,
@@ -86,10 +84,16 @@ def main():
         logging_steps=10,
     )
 
-    Trainer(model=model,
-            args=ta,
-            train_dataset=ds_tok["train"],
-            eval_dataset=ds_tok["test"]).train()
+    trainer = Trainer(model=model,
+                      args=tr_args,
+                      train_dataset=ds_tok["train"],
+                      eval_dataset=ds_tok["test"])
+    trainer.train()
+
+    # 🔑 NEW: save model + tokenizer *once* (rank 0)
+    if torch.distributed.get_rank() == 0:
+        trainer.save_model(args.out)        # writes config.json + weights  :contentReference[oaicite:0]{index=0}
+        tok.save_pretrained(args.out)       # writes tokenizer files        :contentReference[oaicite:1]{index=1}
 
 if __name__ == "__main__":
     main()
