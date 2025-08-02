@@ -52,8 +52,7 @@ def main() -> None:
         rank=args.local_rank, world_size=int(os.getenv("WORLD_SIZE", 1)),
     )
 
-    cache_root = os.environ.setdefault("HF_HOME",
-                                       os.path.join(os.getcwd(), ".hf_cache"))
+    cache_root = '/home/yhanafy/.cache/huggingface'
     os.makedirs(cache_root, exist_ok=True)
 
     # ---------- data ----------

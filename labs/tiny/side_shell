@@ -1,6 +1,6 @@
 python - <<'PY'
 import os, datasets, transformers, json
-os.environ["HF_HOME"] = os.path.expanduser("~/.cache/hf_tiny")
+os.environ["HF_HOME"] = '/home/yhanafy/.cache/huggingface/hf_tiny'
 datasets.load_dataset("ag_news", split="train[:2000]",
                       cache_dir=f"{os.environ['HF_HOME']}/ds")
 tok = transformers.AutoTokenizer.from_pretrained(
@@ -15,7 +15,7 @@ salloc -N1 -n1 -c2 -p parallel --time=00:05:00 --exclusive
 # 2) env + rendez-vous
 source ~/llamaenv_local/bin/activate
 cd ~/mrmito/project
-export HF_HOME=$HOME/.cache/hf_tiny
+export HF_HOME=/home/yhanafy/.cache/hugging_face/hf_tiny
 export PYTHONPATH=$PWD:$PYTHONPATH
 export MASTER_ADDR=$(hostname)
 export MASTER_PORT=$((20000 + RANDOM % 10000))
@@ -30,5 +30,5 @@ torchrun \
 _________________________________________________
 
 
-export HF_HOME=$HOME/.cache/hf_tiny
+export HF_HOME=/home/yhanafy/.cache/huggingface/hf_tiny
 python labs/tiny/test_tiny.py --ckpt tiny_out

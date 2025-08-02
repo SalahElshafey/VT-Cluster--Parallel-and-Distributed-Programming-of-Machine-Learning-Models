@@ -20,7 +20,10 @@ def main():
     args = ap.parse_args()
 
     cache_root = os.environ.setdefault(
-        "HF_HOME", os.path.join(os.getcwd(), ".hf_cache"))
+        "HF_HOME",
+        # os.path.join(os.getcwd(), ".hf_cache")
+        '/home/yhanafy/.cache/huggingface'
+        )
 
     # ----- load model + tokenizer -------------------------------------
     tok   = AutoTokenizer.from_pretrained(args.ckpt)
