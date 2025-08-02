@@ -81,5 +81,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-# export HF_HOME=$HOME/.cache/hf_tiny
-# python labs/tiny/test_tiny.py --ckpt tiny_out
