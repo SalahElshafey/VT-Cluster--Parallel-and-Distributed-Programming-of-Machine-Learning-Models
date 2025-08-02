@@ -10,7 +10,7 @@ print("Done pre-caching.")
 PY
 
 
-salloc -N1 -n1 -c2 -p parallel --time=00:05:00 --exclusive
+salloc --partition=torch --nodes=20 --ntasks-per-node=1 --cpus-per-task=4 --time=00:30:00
 
 # 2) env + rendez-vous
 source ~/llamaenv_local/bin/activate

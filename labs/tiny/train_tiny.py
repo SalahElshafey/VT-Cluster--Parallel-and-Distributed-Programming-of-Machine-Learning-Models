@@ -79,7 +79,7 @@ def main() -> None:
         per_device_train_batch_size=args.batch,
         per_device_eval_batch_size=args.batch,
         num_train_epochs=args.epochs,
-        learning_rate=5e-4,
+        learning_rate=5e-4, # Dynamic learning rate.
         ddp_find_unused_parameters=False,
         logging_steps=10,
     )
@@ -88,12 +88,12 @@ def main() -> None:
                       args=tr_args,
                       train_dataset=ds_tok["train"],
                       eval_dataset=ds_tok["test"])
-    trainer.train()
+    trainer.train() # model under training
 
     # 🔑 NEW: save model + tokenizer *once* (rank 0)
     if torch.distributed.get_rank() == 0:
-        trainer.save_model(args.out)        # writes config.json + weights  :contentReference[oaicite:0]{index=0}
-        tok.save_pretrained(args.out)       # writes tokenizer files        :contentReference[oaicite:1]{index=1}
+        trainer.save_model(args.out)        # writes config.json + weights
+        tok.save_pretrained(args.out)       # writes tokenizer files
 
 if __name__ == "__main__":
     main()

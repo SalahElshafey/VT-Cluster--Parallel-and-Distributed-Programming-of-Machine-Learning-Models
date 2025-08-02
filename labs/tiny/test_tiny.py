@@ -20,7 +20,7 @@ def main():
     args = ap.parse_args()
 
     cache_root = os.environ.setdefault(
-        "HF_HOME", os.path.join(os.getcwd(), ".hf_cache"))
+        "HF_HOME", os.path.join(os.getcwd(), ".hf_cache")) # Change
 
     # ----- load model + tokenizer -------------------------------------
     tok   = AutoTokenizer.from_pretrained(args.ckpt)
@@ -30,7 +30,7 @@ def main():
 
     # ----- dataset (same 512-row slice) --------------------------------
     ds = load_dataset("ag_news", split="test[:512]",
-                      cache_dir=os.path.join(cache_root, "ds"))
+                      cache_dir=os.path.join(cache_root, "ds")) # change
 
     def encode(b):
         return tok(b["text"], truncation=True,
