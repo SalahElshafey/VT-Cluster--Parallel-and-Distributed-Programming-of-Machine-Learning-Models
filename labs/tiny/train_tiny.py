@@ -49,7 +49,7 @@ def main() -> None:
     # Initialise torch.distributed so Trainer aggregates gradients
     torch.distributed.init_process_group(
         backend="gloo" if not torch.cuda.is_available() else "nccl",
-        rank=args.local_rank, world_size=int(os.getenv("WORLD_SIZE", 1)),
+        rank=args.local_rank, world_size=int(os.getenv("SLURM_NTASKS", -1)),
     )
 
     cache_root = os.environ.setdefault("HF_HOME",

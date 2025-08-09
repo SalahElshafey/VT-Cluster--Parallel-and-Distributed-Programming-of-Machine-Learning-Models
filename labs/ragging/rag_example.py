@@ -287,8 +287,8 @@ def main() -> None:
         # If launched via torchrun, these env vars are set automatically:
         #   WORLD_SIZE -> total number of worker processes
         #   LOCAL_RANK -> index of this worker (0..WORLD_SIZE-1)
-        rank = int(os.environ.get("LOCAL_RANK", 0))
-        world = int(os.environ.get("WORLD_SIZE", 1))
+        rank = int(os.environ.get("LOCAL_RANK", 0)) # Playaround with Local Rank
+        world = int(os.environ.get("SLURM_NTASKS", 1))
 
         # Strided sharding: worker 0 takes lines 0, world, 2*world, ...
         shard = queries[rank::world]
