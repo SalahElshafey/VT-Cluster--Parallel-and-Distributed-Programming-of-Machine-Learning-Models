@@ -8,7 +8,7 @@ AIM (why this file exists)
 This script demonstrates the core mechanics of RAG on a CPU-only cluster:
 
 1) "Train" the retriever by fitting a TF–IDF vectorizer over a small text corpus.
-   • This is the training phase for retrieval (not the generator).
+   • This is the training phase for retrieval (not the generator (LLM)).
    • It learns a vocabulary and IDF weights to score relevance.
 
 2) Retrieve top-k passages for a user query.
@@ -71,7 +71,7 @@ def norm(txt: str) -> str:
     """
     Normalize input text by lowercasing and collapsing whitespace.
 
-    Why: Normalization makes retrieval more robust and stable (e.g., "USA" vs "usa"),
+    Why: Normalization makes retrieval more robust and stable (e.g., "USA" vs "usa") - TF-IDF,
     and it helps both TF–IDF and the fallback overlap scorer behave consistently.
     """
     return _WS_RE.sub(" ", txt.lower()).strip()
@@ -183,7 +183,7 @@ def build_prompt(query: str, passages: List[str]) -> str:
     Why deterministic? On CPU, shorter, stable prompts reduce latency and
     variability between runs, which is ideal for teaching and benchmarking.
     """
-    context_block = "\n\n".join(f"- {p}" for p in passages)
+    context_block = "\n\n".join(f"- {p}" for p in passages) # String joined that includes all the context of passages
     return (
         "Answer the question concisely using the context.\n"
         f"Context:\n{context_block}\n\n"
@@ -288,7 +288,7 @@ def main() -> None:
         #   WORLD_SIZE -> total number of worker processes
         #   LOCAL_RANK -> index of this worker (0..WORLD_SIZE-1)
         rank = int(os.environ.get("LOCAL_RANK", 0)) # Playaround with Local Rank
-        world = int(os.environ.get("SLURM_NTASKS", 1))
+        world = int(os.environ.get("SLURM_NTASKS", 1)) # Tested
 
         # Strided sharding: worker 0 takes lines 0, world, 2*world, ...
         shard = queries[rank::world]
