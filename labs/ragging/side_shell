@@ -12,7 +12,7 @@ print("Done pre-caching for RAG.")
 PY
 
 # ------------ 1) Allocation + env ------------------------
-salloc -N1 -n1 -c2 --mem=2G -p parallel --time=00:20:00 --pty bash
+salloc --partition=torch --nodes=20 --ntasks-per-node=1 --cpus-per-task=4 --time=00:30:00
 
 # inside the allocated shell:
 source ~/llamaenv_local/bin/activate
