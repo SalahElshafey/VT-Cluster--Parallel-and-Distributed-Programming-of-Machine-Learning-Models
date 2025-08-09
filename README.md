@@ -4,6 +4,14 @@
 
 This repository contains four labs for getting comfortable with a Slurm based cluster and experimenting with distributed language model training.  The material and code were prepared by Assistant Lecturer: **Eng. Ahmed Métwalli** ([ResearchGate](https://www.researchgate.net/profile/Ahmed-Metwalli), [LinkedIn](https://www.linkedin.com/in/ahmed-m%C3%A9twalli/)), affiliated with the **AASTMT Alamein Campus College of Artificial Intelligence**.
 
+## What's New
+
+- A visual tour of the repository layout and training workflow is available in [`docs/overview.md`](docs/overview.md) accompanied by `docs/Cluster.gif`.
+- Detailed PDF handouts for Labs 0–2 can be found in the [`explanation/`](explanation) directory for offline study.
+- Weekly question-and-answer notes are captured in [`Q&AW1.txt`](Q&AW1.txt) and [`Q&AW2.txt`](Q&AW2.txt).
+- Utility scripts in [`utils/`](utils) simplify SSH connectivity, cluster inspection and distributed training setup.
+- A CPU-only retrieval‑augmented generation demo lives in [`labs/ragging/`](labs/ragging) with a walkthrough in [`labs/ragging/README.md`](labs/ragging/README.md).
+
 ## Lab Overview
 
 1. **Lab 0 – Getting Started**
