@@ -311,3 +311,15 @@ def main() -> None:
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
     main()
+
+
+'''
+Interp:
+Your corpus is AG News headlines/articles, not a textbook or FAQ about ML. So when you ask a generic definitional question, TF‑IDF hunts for literal word overlap in news. It finds “deep” in deep‑sea, “learning” in lifelong learning, etc.
+
+TF‑IDF is purely lexical. It doesn’t know “deep learning” (ML) ≠ “deep sea”. With few or no exact matches, the top “similar” docs can be tangential.
+
+Your prompt forces grounding in the retrieved context. You tell FLAN‑T5 to “Answer … using the context.” If the context is an unrelated news snippet, the model obediently answers about that snippet—hence the nautical response.
+
+Small model + tiny slice. flan‑t5‑small on CPU and train[:2000] means limited knowledge and limited recall. You didn’t fine‑tune the generator, so it won’t override bad context with encyclopedic memory.
+'''

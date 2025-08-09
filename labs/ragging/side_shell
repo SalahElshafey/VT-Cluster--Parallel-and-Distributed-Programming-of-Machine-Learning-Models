@@ -16,7 +16,7 @@ salloc --partition=torch --nodes=20 --ntasks-per-node=1 --cpus-per-task=4 --time
 
 # inside the allocated shell:
 source ~/llamaenv_local/bin/activate
-cd ~/project
+cd ~/mrmito/project
 export HF_HOME=$HOME/.cache/hf_rag
 export PYTHONPATH=$PWD:$PYTHONPATH
 
