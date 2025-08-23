@@ -47,11 +47,18 @@ def main() -> None:
     args = p.parse_args()
 
     # Initialise torch.distributed so Trainer aggregates gradients
-    torch.distributed.init_process_group(
-        backend="gloo" if not torch.cuda.is_available() else "nccl",
-        rank=args.local_rank, world_size=int(os.getenv("SLURM_NTASKS", -1)),
-    )
+# ── add this instead ──
+    backend = "gloo" if not torch.cuda.is_available() else "nccl"
+    if not torch.distributed.is_initialized():
+        torch.distributed.init_process_group(backend=backend, init_method="env://")
 
+    # 🔎 add debug print here
+    if torch.distributed.is_initialized():
+        print(f"[RANK {torch.distributed.get_rank()}] "
+              f"WORLD_SIZE={torch.distributed.get_world_size()}",
+              flush=True)
+    else:
+        print("[single process]", flush=True)
     cache_root = os.environ.setdefault("HF_HOME",
                                        os.path.join(os.getcwd(), ".hf_cache"))
     os.makedirs(cache_root, exist_ok=True)
@@ -91,9 +98,9 @@ def main() -> None:
     trainer.train() # model under training
 
     # 🔑 NEW: save model + tokenizer *once* (rank 0)
-    if torch.distributed.get_rank() == 0:
-        trainer.save_model(args.out)        # writes config.json + weights
-        tok.save_pretrained(args.out)       # writes tokenizer files
+    if not torch.distributed.is_initialized() or torch.distributed.get_rank() == 0:
+        trainer.save_model(args.out)
+        tok.save_pretrained(args.out)
 
 if __name__ == "__main__":
     main()
