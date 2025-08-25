@@ -41,7 +41,7 @@ HOST = os.getenv("HOST")
 USER = os.getenv("USER")
 PASS = os.getenv("PASS")
 PORT = int(os.getenv("PORT", 22))
-KEEPALIVE = int(os.getenv("KEEPALIVE", 30))           # seconds
+KEEPALIVE = int(os.getenv("KEEPALIVE", 60))           # seconds
 
 # --------------------------------------------------------------------------- #
 # Helpers                                                                     #
