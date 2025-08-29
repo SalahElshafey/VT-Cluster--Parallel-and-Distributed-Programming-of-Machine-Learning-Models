@@ -4,7 +4,7 @@ set -euo pipefail
 
 # ============ SETTINGS ============
 PARTITION=torch
-JOB_NODES=10
+JOB_NODES=5
 NPROC_PER_NODE=2
 TIME=00:30:00
 SALLOC_OPTS="${SALLOC_OPTS:-}"   # e.g., --exclude=hpc42
