@@ -1,20 +1,20 @@
+# labs/tiny/train_tiny.py
 """
 Tiny (<1 M params) text classifier with HuggingFace Trainer + torchrun.
-Logs from EVERY rank to stdout (+ per-rank files) so Slurm tails show all nodes.
+Adds scientific signals: step_ms/samples_per_sec/tokens_per_sec, epoch eval accuracy, and total runtime.
 """
 
-import os
-import argparse
+import os, argparse, time
 import torch
+import numpy as np
 
-# ── CPU-only monkey-patch so Accelerate won’t call torch.cpu.set_device() ──
+# ── CPU-only safety patch ──
 if not torch.cuda.is_available():
     try:
         import torch.cpu  # type: ignore
-        torch.cpu.set_device = lambda *_: None  # no-op on CPU-only nodes
+        torch.cpu.set_device = lambda *_: None
     except Exception:
         pass
-# ──────────────────────────────────────────────────────────────────────────
 
 from datasets import load_dataset
 from transformers import (
@@ -25,25 +25,18 @@ from transformers import (
 # ---------- rank helpers ----------
 def dist_is_init() -> bool:
     return torch.distributed.is_available() and torch.distributed.is_initialized()
-
 def get_rank() -> int:
-    if dist_is_init():
-        return torch.distributed.get_rank()
-    return 0
-
+    return torch.distributed.get_rank() if dist_is_init() else 0
 def get_world_size() -> int:
-    if dist_is_init():
-        return torch.distributed.get_world_size()
-    return 1
+    return torch.distributed.get_world_size() if dist_is_init() else 1
 
-# ---------- per-rank logger (stdout + file, optional TB) ----------
+# ---------- per-rank logger ----------
 class PerRankLogger(TrainerCallback):
     def __init__(self, out_dir: str, use_tb: bool = True):
         os.makedirs(out_dir, exist_ok=True)
         self.rank = get_rank()
         self.txt_path = os.path.join(out_dir, f"log.rank{self.rank}.txt")
-        self._fh = open(self.txt_path, "a", buffering=1)  # line-buffered
-
+        self._fh = open(self.txt_path, "a", buffering=1)
         self.tb = None
         if use_tb:
             try:
@@ -55,35 +48,46 @@ class PerRankLogger(TrainerCallback):
                 self.tb = None
 
     def on_log(self, args, state, control, logs=None, **kwargs):
-        if not logs:
-            return
+        if not logs: return
         step = int(state.global_step) if state.global_step is not None else -1
         prefix = f"[rank {self.rank} | step {step}] "
         line = prefix + " ".join(f"{k}={v}" for k, v in logs.items())
-        # -> to stdout (captured by Slurm into bash.<jobid>.*.out)
         print(line, flush=True)
-        # -> to per-rank text file
         self._fh.write(line + "\n")
-        # -> TensorBoard (numeric only)
         if self.tb:
             for k, v in logs.items():
                 if isinstance(v, (int, float)):
                     self.tb.add_scalar(k, v, step)
 
     def on_train_end(self, args, state, control, **kwargs):
-        try:
-            self._fh.close()
-        except Exception:
-            pass
+        try: self._fh.close()
+        except Exception: pass
         if self.tb:
-            try:
-                self.tb.flush(); self.tb.close()
-            except Exception:
-                pass
+            try: self.tb.flush(); self.tb.close()
+            except Exception: pass
+
+# ---------- step timer (scientific signals) ----------
+class StepTimer(TrainerCallback):
+    def __init__(self, per_device_bs: int, seq_len: int = 128):
+        self.bs = per_device_bs
+        self.seq_len = seq_len
+        self.t0 = None
+    def on_step_begin(self, args, state, control, **kw):
+        self.t0 = time.perf_counter()
+    def on_step_end(self, args, state, control, **kw):
+        if self.t0 is None: return
+        dt_ms = (time.perf_counter() - self.t0) * 1000.0
+        ws = get_world_size()
+        sps = (self.bs * ws) / (dt_ms / 1000.0)          # samples/sec (cluster)
+        tps = sps * self.seq_len                          # tokens/sec (approx)
+        print(f"[rank {get_rank()} | step {state.global_step}] "
+              f"step_ms={dt_ms:.2f} samples_per_sec={sps:.2f} tokens_per_sec={tps:.2f}",
+              flush=True)
+        self.t0 = None
 
 # ---------- helpers ----------
 def build_tokenizer(cache_root: str):
-    tok_name = "google/bert_uncased_L-2_H-128_A-2"  # tiny BERT vocab
+    tok_name = "google/bert_uncased_L-2_H-128_A-2"
     return AutoTokenizer.from_pretrained(tok_name,
                                          cache_dir=os.path.join(cache_root, "tok"))
 
@@ -94,6 +98,12 @@ def tiny_config(vocab_size: int) -> BertConfig:
         intermediate_size=256, max_position_embeddings=256,
     )
 
+def compute_metrics(eval_pred):
+    logits, labels = eval_pred
+    preds = np.argmax(logits, axis=-1)
+    acc = float((preds == labels).mean())
+    return {"accuracy": acc}
+
 # ---------- main ----------
 def main() -> None:
     p = argparse.ArgumentParser()
@@ -101,44 +111,41 @@ def main() -> None:
     p.add_argument("--subset", type=int, default=2000)
     p.add_argument("--batch",  type=int, default=16)
     p.add_argument("--out",    default="./tiny_out")
-    p.add_argument("--local_rank", type=int,
-                   default=int(os.getenv("LOCAL_RANK", 0)))
+    p.add_argument("--local_rank", type=int, default=int(os.getenv("LOCAL_RANK", 0)))
     args = p.parse_args()
 
-    # DDP init so Trainer aggregates gradients across processes
+    # DDP init
     backend = "gloo" if not torch.cuda.is_available() else "nccl"
     if not dist_is_init():
         torch.distributed.init_process_group(backend=backend, init_method="env://")
 
-    # Banner on EVERY rank (helps confirm all ranks alive in Slurm logs)
+    # Rank banner
     if dist_is_init():
         print(f"[RANK {get_rank()}] WORLD_SIZE={get_world_size()}", flush=True)
     else:
         print("[single process]", flush=True)
 
-    # Caches (works online or offline)
-    cache_root = os.environ.setdefault("HF_HOME",
-                                       os.path.join(os.getcwd(), ".hf_cache"))
+    # Caches
+    cache_root = os.environ.setdefault("HF_HOME", os.path.join(os.getcwd(), ".hf_cache"))
     os.makedirs(cache_root, exist_ok=True)
 
-    # ----- data
+    # Data
     ds = load_dataset("ag_news", cache_dir=os.path.join(cache_root, "ds"))
     ds["train"] = ds["train"].select(range(args.subset))
     ds["test"]  = ds["test"].select(range(512))
 
     tok = build_tokenizer(cache_root)
     def tok_fn(batch):
-        return tok(batch["text"], padding="max_length",
-                   truncation=True, max_length=128)
+        return tok(batch["text"], padding="max_length", truncation=True, max_length=128)
     ds_tok = ds.map(tok_fn, batched=True).rename_column("label", "labels")
     ds_tok.set_format("torch", columns=["input_ids", "attention_mask", "labels"])
 
-    # ----- model
+    # Model
     cfg = tiny_config(tok.vocab_size)
-    cfg.num_labels = ds_tok["train"].features["labels"].num_classes  # = 4
+    cfg.num_labels = ds_tok["train"].features["labels"].num_classes  # 4
     model = BertForSequenceClassification(cfg)
 
-    # ----- training args (ensure logging happens periodically on all ranks)
+    # Training args
     rank = get_rank()
     tr_args = TrainingArguments(
         output_dir=args.out,
@@ -150,8 +157,13 @@ def main() -> None:
         logging_strategy="steps",
         logging_steps=10,
         logging_first_step=True,
-        disable_tqdm=(rank != 0),   # keep progress bar only on rank 0
-        report_to=[],               # no external trackers by default
+        disable_tqdm=(rank != 0),
+        report_to=[],
+        seed=42,
+        evaluation_strategy="epoch",
+        save_strategy="no",
+        load_best_model_at_end=False,
+        dataloader_num_workers=0,
     )
 
     trainer = Trainer(
@@ -159,15 +171,33 @@ def main() -> None:
         args=tr_args,
         train_dataset=ds_tok["train"],
         eval_dataset=ds_tok["test"],
+        compute_metrics=compute_metrics,
     )
 
-    # Attach per-rank logger so EVERY rank emits logs
+    # Scientific callbacks
+    trainer.add_callback(StepTimer(args.batch, seq_len=128))
     trainer.add_callback(PerRankLogger(args.out, use_tb=True))
 
-    # Train
+    # Train + time
+    t0 = time.perf_counter()
     trainer.train()
+    t1 = time.perf_counter()
+    if not dist_is_init() or get_rank() == 0:
+        print(f"[RANK 0] TRAIN_RUNTIME_SEC={t1 - t0:.3f}", flush=True)
 
-    # Save once (rank 0)
+    # ---- EVAL runs on ALL ranks (do NOT guard with rank==0)
+    metrics = trainer.evaluate()
+    if get_rank() == 0 and "eval_accuracy" in metrics:
+        print(f"[RANK 0] EVAL accuracy={metrics['eval_accuracy']:.4f}", flush=True)
+
+    # Optional: synchronize so everyone leaves together cleanly
+    if dist_is_init():
+        try:
+            torch.distributed.barrier()
+        except Exception:
+            pass
+
+    # Save once
     if not dist_is_init() or get_rank() == 0:
         trainer.save_model(args.out)
         tok.save_pretrained(args.out)
