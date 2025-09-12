@@ -1,478 +1,225 @@
-Absolutely. Here's an updated and polished version of your `README.md` — tailored to be \*\*professional\*\*, \*\*realistic\*\*, and \*\*transparent\*\* about the cluster access.
+# Fine-Tuning and Parallelization of Large Language Models on HPC Clusters
 
-
-
-This version includes a clear and respectful note indicating that the HPC cluster is \*\*restricted to authorized users\*\*, and the scripts are provided for demonstration, documentation, and portfolio purposes.
-
-
+**Author:** Salaheldin Khaled Salaheldin Amin Elshafey  
+**Email:** [Salahkhaledcx5@gmail.com](mailto:Salahkhaledcx5@gmail.com)  
+**Date:** Summer 2025
 
 ---
 
+## Overview
 
+This repository documents two advanced machine learning projects that demonstrate scalable fine-tuning of Large Language Models (LLMs) on a multi-node high-performance computing (HPC) cluster with limited memory per node.
 
-````markdown
+The work implements distributed training and memory-efficient techniques such as:
 
-\# Fine-Tuning and Parallelization of Large Language Models on HPC Clusters
+- **Distributed Data Parallel (DDP)**
+- **Model Parallelism**
+- **Pipeline Parallelism**
+- **Low-Rank Adaptation (LoRA)**
+- **FP16 Mixed Precision Training**
 
+The goal was to adapt large-scale models to hardware-constrained environments and evaluate their performance across different parallelization strategies.
 
+Models fine-tuned:
 
-\*\*Author:\*\* Salaheldin Khaled Salaheldin Amin Elshafey  
-
-\*\*Email:\*\* \[Salahkhaledcx5@gmail.com](mailto:Salahkhaledcx5@gmail.com)  
-
-\*\*Date:\*\* Summer 2025
-
-
-
----
-
-
-
-\## Overview
-
-
-
-This repository documents two advanced machine learning projects that demonstrate scalable fine-tuning of Large Language Models (LLMs) using a distributed high-performance computing (HPC) cluster.
-
-
-
-The work focuses on implementing parallelization strategies such as \*\*Distributed Data Parallel (DDP)\*\*, \*\*Model Sharding\*\*, \*\*Pipeline Parallelism\*\*, and \*\*Low-Rank Adaptation (LoRA)\*\* to make large-scale training feasible under constrained hardware environments.
-
-
-
-The models used:
-
-
-
-\- \[`distilgpt2`](https://huggingface.co/distilgpt2): A compact GPT-2 variant (~82M parameters).
-
-\- \[`facebook/opt-2.7b`](https://huggingface.co/facebook/opt-2.7b): A large-scale decoder-only transformer (~2.7B parameters).
-
-
+- [`distilgpt2`](https://huggingface.co/distilgpt2): Compact GPT-2 variant (~82M parameters)
+- [`facebook/opt-2.7b`](https://huggingface.co/facebook/opt-2.7b): Large decoder-only transformer (~2.7B parameters)
 
 ---
 
+## ⚠️ Note on Cluster Access
 
-
-\## ⚠️ Note on Cluster Access
-
-
-
-> The scripts and benchmarks in this repository were developed and tested on a private multi-node HPC cluster.  
-
-> \*\*Access to the cluster is restricted\*\* to authorized users only.  
-
-> This repository is provided for \*\*documentation, demonstration, and academic portfolio purposes\*\*.
-
-
-
-All included scripts and configurations reflect actual training procedures, parallelization strategies, and optimization experiments conducted in a real cluster environment.
-
-
+> These experiments were conducted on a private, multi-node CPU-based HPC cluster.  
+> **Access is restricted to authorized users only.**  
+> This repository is shared for documentation and academic showcase purposes.
 
 ---
 
+## Project 1: Fine-Tuning DistilGPT2 with DDP and LoRA
 
+### Objective
 
-\## Project 1: Fine-Tuning DistilGPT2 with DDP and LoRA
+To fine-tune the lightweight `distilgpt2` model using **Distributed Data Parallel (DDP)** and **LoRA**, and evaluate execution performance across multiple cluster node configurations.
 
+### Model Specifications
 
+- **Architecture:** GPT-2–style causal LM (decoder-only Transformer)
+- **Parameters:** ~82M
+- **Layers / Heads / Hidden Size:** 6 layers, 12 attention heads, 768 hidden units
+- **Context Length:** 1024 tokens
+- **Tokenizer:** GPT-2 byte-level BPE (50,257 vocab); EOS/BOS token ID: 50256
+- **Dropout:** attn_pdrop=0.1, resid_pdrop=0.1, embd_pdrop=0.1
+- **Activation Function:** `gelu_new`
+- **License:** Apache-2.0
 
-\### Summary
+### Datasets
 
+- **Tiny Dataset for Debugging:** `/data/tiny_openwebtext.txt`
+- **Medium Dataset (~20,000 lines):** `/data/medium_openwebtext.txt`
 
+### Cluster Configuration
 
-This project fine-tunes `distilgpt2` using:
-
-
-
-\- \*\*Distributed Data Parallel (DDP)\*\* for multi-node execution
-
-\- \*\*LoRA (Low-Rank Adaptation)\*\* for memory-efficient fine-tuning
-
-
-
-\### Technical Details
-
-
-
-\- Model: Decoder-only Transformer
-
-\- Parameters: ~82M
-
-\- Layers: 6
-
-\- Hidden Size: 768
-
-\- Attention Heads: 12
-
-\- Context Length: 1024 tokens
-
-\- Tokenizer: GPT-2 BPE
-
-\- Optimizations: DDP, LoRA
-
-
-
-\### Datasets
-
-
-
-\- Debug Dataset: `/data/tiny\_openwebtext.txt`
-
-\- Medium Dataset (~20,000 lines): `/data/medium\_openwebtext.txt`
-
-
-
-\### Cluster Configuration
-
-
-
-Example of nodes used:
-
-
+Training was executed on a cluster with 8GB RAM per node. Nodes used:
 
 ```bash
+nodes=(hpc11 hpc12 hpc15 hpc16 hpc18 hpc21 hpc25 hpc26 hpc27 hpc29 \
+       hpc32 hpc35 hpc36 hpc37 hpc39 hpc40 hpc41 hpc43 hpc44 hpc46)
+```
 
-nodes=(hpc11 hpc12 hpc15 hpc16 hpc18 hpc21 hpc25 hpc26 hpc27 hpc29 \\
+### Execution and Benchmarking
 
-&nbsp;      hpc32 hpc35 hpc36 hpc37 hpc39 hpc40 hpc41 hpc43 hpc44 hpc46)
-
-````
-
-
-
-\### Benchmarking
-
-
-
-Training was executed on:
-
-
-
-\* 5 nodes
-
-\* 10 nodes
-
-\* 20 nodes
-
-
-
-Training times and performance metrics were logged and compared.
-
-Output models are saved under: `~/distilgpt2\_finetuned/`
-
-
+- Tiny dataset used for testing/debugging
+- Medium dataset used for final benchmarks
+- Model trained using:
+  - 5 nodes
+  - 10 nodes
+  - 20 nodes
+- Execution time measured and compared
+- Final model saved in: `~/distilgpt2_finetuned/`
 
 ---
 
+## Project 2: Fine-Tuning facebook/opt-2.7b with Parallelism & Memory Optimization
 
+### Objective
 
-\## Project 2: Fine-Tuning OPT-2.7B Using Parallelism and Memory Optimization
+To fine-tune `facebook/opt-2.7b`, a large-scale decoder-only transformer, on a 40-node CPU cluster using optimized memory distribution and parallelism.
 
+Due to model size and memory constraints (each node has only 8 GB RAM), standard DDP is not feasible. Instead, this project used:
 
+- **Model Sharding**
+- **Pipeline Parallelism**
+- **LoRA**
+- **FP16 mixed precision**
 
-\### Summary
+### Model Specifications
 
+- **Type:** Decoder-only Transformer (causal LM)
+- **Parameters:** ~2.7B  
+  - FP16: ≈ 5.4 GB  
+  - FP32: ≈ 10.8 GB
+- **Layers / Attention Heads / Hidden Size:** 32 layers, 32 heads, 2560 hidden units
+- **Feedforward Network Size:** 10,240
+- **Activation Function:** ReLU
+- **LayerNorm Placement:** Pre-LN (`do_layer_norm_before: true`)
+- **Dropout:**
+  - residual: 0.1  
+  - attention: 0.0  
+  - activation: 0.0
+- **Context Length:** 2048 tokens
+- **Tokenizer & Vocab:** GPT-2 byte-level BPE, vocab size: 50,272  
+  - `pad_token_id=1`, `bos_token_id=2`, `eos_token_id=2`
+- **HF Architecture Class:** `OPTForCausalLM`
+- **Training Objective:** Causal Language Modeling (trained on ~180B tokens from curated corpora)
 
+### Datasets
 
-This project scales the fine-tuning of `facebook/opt-2.7b`, a 2.7 billion parameter model, across a 40-node CPU cluster. Due to limited memory (8 GB per node), DDP alone was insufficient. A hybrid approach using \*\*Model Parallelism\*\*, \*\*Pipeline Parallelism\*\*, \*\*LoRA\*\*, and \*\*FP16 Mixed Precision\*\* was implemented.
+- Reused the medium-sized dataset: `/data/medium_openwebtext.txt`
 
+### Execution Strategy
 
+- **Why not DDP?**: Model exceeds per-node memory
+- **Solution**:
+  - Model sharded across layers using pipeline parallelism
+  - LoRA used to avoid full fine-tuning
+  - Training done in FP16 to reduce memory consumption
+  - Dataset sharded manually per node
 
-\### Model Specifications
+### Output
 
-
-
-\* Architecture: Decoder-only Transformer
-
-\* Layers: 32
-
-\* Hidden Size: 2560
-
-\* Attention Heads: 32
-
-\* Feedforward Network Size: 10240
-
-\* Activation: ReLU
-
-\* Tokenizer: GPT-2 BPE (vocab size: 50,272)
-
-\* Context Window: 2048 tokens
-
-
-
-\### Techniques Applied
-
-
-
-\* Partitioned the model using frameworks like DeepSpeed or Megatron-LM
-
-\* Distributed layers across multiple nodes using pipeline parallelism
-
-\* Applied LoRA to reduce memory usage during fine-tuning
-
-\* Enabled FP16 for reduced memory footprint
-
-\* Sharded dataset and managed cross-node synchronization
-
-
-
-\### Dataset
-
-
-
-\* Medium dataset used: `/data/medium\_openwebtext.txt`
-
-
-
-\### Results
-
-
-
-\* Successfully trained across 40 nodes
-
-\* Memory constraints were addressed through careful partitioning
-
-\* Checkpoints saved to: `~/opt\_2.7b\_finetuned/`
-
-\* Final performance analysis is included in the `benchmarks/` directory
-
-
+- Training completed using 40 nodes
+- Checkpoints saved in: `~/opt_2.7b_finetuned/`
+- Benchmarking report includes node utilization, memory stats, and training times
 
 ---
 
-
-
-\## Installation
-
-
+## Installation
 
 ```bash
-
-\# Clone the repository
-
+# Clone the repository
 git clone https://github.com/your-username/llm-parallel-training.git
-
 cd llm-parallel-training
 
-
-
-\# Set up Python virtual environment
-
+# Set up Python environment
 python3 -m venv env
-
 source env/bin/activate
 
-
-
-\# Install all required dependencies
-
+# Install dependencies
 pip install -r requirements.txt
-
 ```
-
-
 
 ---
 
+## Usage
 
-
-\## Usage
-
-
-
-\### Fine-Tune DistilGPT2
-
-
+### Fine-tune DistilGPT2
 
 ```bash
+# Debug run (tiny dataset)
+bash scripts/train_distilgpt2.sh tiny
 
-\# Debug run (tiny dataset)
-
-bash scripts/train\_distilgpt2.sh tiny
-
-
-
-\# Full benchmark run (medium dataset)
-
-bash scripts/train\_distilgpt2.sh medium
-
+# Benchmark run (medium dataset)
+bash scripts/train_distilgpt2.sh medium
 ```
 
-
-
-\### Fine-Tune OPT-2.7B
-
-
+### Fine-tune OPT-2.7B
 
 ```bash
-
-\# Full parallel training using 40-node strategy
-
-bash scripts/train\_opt\_2.7b.sh
-
+# Distributed fine-tuning with model/pipeline parallelism
+bash scripts/train_opt_2.7b.sh
 ```
 
-
-
-> Note: These scripts are intended for clusters with SLURM or MPI-based job scheduling.
-
-
+> Scripts assume SLURM or MPI for node orchestration.
 
 ---
 
+## Dependencies
 
+Key Python libraries used:
 
-\## Dependencies
+- `transformers`
+- `datasets`
+- `torch`
+- `accelerate`
+- `deepspeed`
+- `peft`
+- `tokenizers`
+- `numpy`, `scipy`, `pandas`
 
-
-
-This project uses the following Python packages:
-
-
-
-\* `transformers`
-
-\* `datasets`
-
-\* `torch`
-
-\* `accelerate`
-
-\* `deepspeed`
-
-\* `peft`
-
-\* `tokenizers`
-
-\* `numpy`, `scipy`, `pandas`
-
-
-
-For a complete list, refer to the `requirements.txt` file.
-
-
+See `requirements.txt` for exact versions.
 
 ---
 
+## System Requirements
 
-
-\## System Requirements
-
-
-
-\* Access to a multi-node HPC cluster
-
-\* Each node with:
-
-
-
-&nbsp; \* At least 8 GB RAM
-
-&nbsp; \* Linux OS
-
-\* Shared file system (e.g., NFS or Lustre)
-
-\* Python 3.8 or higher
-
-\* SLURM or MPI-compatible job launcher
-
-
+- Multi-node HPC cluster with:
+  - 5 to 40 nodes (depending on the task)
+  - Each node with minimum 8 GB RAM
+- Linux OS
+- Shared file system (e.g., `/data/`)
+- SLURM or MPI job launcher
+- Python 3.8+
 
 ---
 
+## Troubleshooting
 
-
-\## Troubleshooting
-
-
-
-| Issue                    | Solution                                                                 |
-
-| ------------------------ | ------------------------------------------------------------------------ |
-
-| Out of Memory (OOM)      | Use LoRA with pipeline or model parallelism                              |
-
-| NCCL Initialization Fail | Verify `MASTER\_ADDR`, `RANK`, `WORLD\_SIZE` environment variables         |
-
-| Tokenizer Errors         | Use the correct Hugging Face tokenizer class (e.g., `GPT2TokenizerFast`) |
-
-| I/O Bottlenecks          | Use node-local storage or `/scratch` if available                        |
-
-
+| Issue                  | Suggested Fix                                                         |
+|------------------------|------------------------------------------------------------------------|
+| Out of Memory (OOM)    | Use LoRA + pipeline/model sharding + FP16 precision                   |
+| NCCL Launch Errors     | Confirm `MASTER_ADDR`, `MASTER_PORT`, `RANK`, and `WORLD_SIZE` setup  |
+| Tokenizer Mismatch     | Ensure use of correct tokenizer class (e.g., `GPT2TokenizerFast`)      |
+| Slow I/O or loading    | Prefer node-local storage or `/scratch` instead of NFS                |
 
 ---
 
+## Author
 
-
-\## Author
-
-
-
-\*\*Salaheldin Khaled Salaheldin Amin Elshafey\*\*
-
-Email: \[Salahkhaledcx5@gmail.com](mailto:Salahkhaledcx5@gmail.com)
-
-
+**Salaheldin Khaled Salaheldin Amin Elshafey**  
+Email: [Salahkhaledcx5@gmail.com](mailto:Salahkhaledcx5@gmail.com)
 
 ---
 
+## License
 
-
-\## License
-
-
-
-This project is distributed under the \[MIT License](LICENSE).
-
-
-
----
-
-
-
-```
-
-
-
----
-
-
-
-\### ✅ Summary
-
-
-
-This version:
-
-
-
-\- ✅ Clearly separates your work from the system/infrastructure access
-
-\- ✅ Is professional and understated
-
-\- ✅ Highlights your technical work, not just the code
-
-\- ✅ Prepares you for applying to research internships, jobs, or master's/PhD programs
-
-
-
-Let me know if you want:
-
-
-
-\- A matching `requirements.txt`
-
-\- Example SLURM scripts (`sbatch`) or launchers
-
-\- A professional GitHub project description or LinkedIn post
-
-
-
-You're now fully ready to publish this as a \*\*credible, technical, and personal\*\* achievement.
-
-```
-
-
-
+This project is licensed under the [MIT License](LICENSE).
