@@ -1,9 +1,10 @@
 # Fine-Tuning and Parallelization of Large Language Models on HPC Clusters
 
 <p align="center">
+<img src="assets/Virginia-Tech-Logo.png" alt="Virginia Tech Logo" height="80">
+&nbsp;&nbsp;&nbsp;&nbsp;
   <img src="assets/AAST.png" alt="AASTMT Logo" height="80">
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/vt-logo.png" alt="Virginia Tech Logo" height="80">
+    
 </p>
 
 **Author:** Salaheldin Khaled Salaheldin Amin Elshafey  
