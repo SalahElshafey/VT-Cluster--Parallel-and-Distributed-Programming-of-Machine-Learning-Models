@@ -1,0 +1,37 @@
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/llamaenv_local/lib/python3.11/site-packages/transformers/utils/hub.py:124: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+./run_node.sh: line 33:  4520 Killed                  python ./finetune_lora_opt_pp.py --model_name "$MODEL_NAME" --data_file "$DATA_FILE" --seq_len "$SEQ_LEN" --epochs "$EPOCHS" --batch "$BATCH" --accum "$ACCUM" --lr "$LR" --ds_cfg "$DS_CFG" --logdir "$LOGDIR" --out_root "$OUT_ROOT"
+slurmstepd-hpc42: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc42: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+srun: error: hpc42: task 3: Out Of Memory
+srun: Terminating job step 8379.1
+slurmstepd-hpc39: error: *** STEP 8379.1 ON hpc39 CANCELLED AT 2025-09-11T02:08:55 ***
+slurmstepd-hpc39: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc40: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc40: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc43: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc43: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc44: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc44: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc41: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc41: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc46: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc46: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc45: error: Step 8379.1 hit memory limit at least once during execution. This may or may not result in some failure.
+slurmstepd-hpc45: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.
+[FATAL] line 55 rc=1
+slurmstepd-hpc39: error: Job 8379 hit memory limit at least once during execution. This may or may not result in some failure.

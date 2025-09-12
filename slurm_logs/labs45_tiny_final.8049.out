@@ -1,0 +1,74 @@
+[INFO] TRAIN_TINY=/home/salahelshafie@student.aast.edu/project/labs/tiny/train_tiny.py
+[INFO] TEST_TINY=/home/salahelshafie@student.aast.edu/project/labs/tiny/test_tiny.py
+-rw-r--r-- 1 salahelshafie@student.aast.edu domain users@student.aast.edu 3296 Sep  2 03:09 /home/salahelshafie@student.aast.edu/project/labs/tiny/test_tiny.py
+-rw-r--r-- 1 salahelshafie@student.aast.edu domain users@student.aast.edu 6558 Sep  2 03:09 /home/salahelshafie@student.aast.edu/project/labs/tiny/train_tiny.py
+NODE hpc12 OK -> PY 1.26.4 torch 2.3.1+cpu tfm 4.41.2 ds 2.19.0
+[RANK 0] WORLD_SIZE=2
+[RANK 1] WORLD_SIZE=2
+/home/salahelshafie@student.aast.edu/offline_repo_py311/pkgs/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+/home/salahelshafie@student.aast.edu/offline_repo_py311/pkgs/huggingface_hub/file_download.py:945: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+  warnings.warn(
+Detected kernel version 4.15.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+  0%|          | 0/125 [00:00<?, ?it/s]  1%|          | 1/125 [00:03<07:53,  3.82s/it][rank 1 | step 1] loss=1.3802 grad_norm=1.4468005895614624 learning_rate=0.000496 epoch=0.008
+                                               {'loss': 1.3802, 'grad_norm': 1.4468005895614624, 'learning_rate': 0.000496, 'epoch': 0.01}
+  1%|          | 1/125 [00:03<07:53,  3.82s/it][rank 0 | step 1] loss=1.3802 grad_norm=1.4468005895614624 learning_rate=0.000496 epoch=0.008
+  2%|▏         | 2/125 [00:04<03:50,  1.87s/it]  2%|▏         | 3/125 [00:04<02:35,  1.27s/it]  4%|▍         | 5/125 [00:05<01:12,  1.65it/s]  5%|▍         | 6/125 [00:05<00:54,  2.16it/s]  6%|▋         | 8/125 [00:05<00:48,  2.40it/s]  7%|▋         | 9/125 [00:06<00:54,  2.15it/s]  8%|▊         | 10/125 [00:07<00:56,  2.04it/s][rank 1 | step 10] loss=1.347 grad_norm=0.47351378202438354 learning_rate=0.00046 epoch=0.08
+                                                {'loss': 1.347, 'grad_norm': 0.47351378202438354, 'learning_rate': 0.00046, 'epoch': 0.08}
+  8%|▊         | 10/125 [00:07<00:56,  2.04it/s][rank 0 | step 10] loss=1.347 grad_norm=0.47351378202438354 learning_rate=0.00046 epoch=0.08
+ 10%|▉         | 12/125 [00:07<00:36,  3.10it/s] 11%|█         | 14/125 [00:07<00:26,  4.23it/s] 13%|█▎        | 16/125 [00:07<00:20,  5.36it/s] 14%|█▎        | 17/125 [00:08<00:29,  3.65it/s] 14%|█▍        | 18/125 [00:08<00:36,  2.96it/s] 16%|█▌        | 20/125 [00:09<00:25,  4.13it/s][rank 1 | step 20] loss=1.3548 grad_norm=0.6288607716560364 learning_rate=0.00042 epoch=0.16
+                                                {'loss': 1.3548, 'grad_norm': 0.6288607716560364, 'learning_rate': 0.00042, 'epoch': 0.16}
+ 16%|█▌        | 20/125 [00:09<00:25,  4.13it/s][rank 0 | step 20] loss=1.3548 grad_norm=0.6288607716560364 learning_rate=0.00042 epoch=0.16
+ 18%|█▊        | 22/125 [00:09<00:19,  5.34it/s] 19%|█▉        | 24/125 [00:09<00:15,  6.43it/s] 21%|██        | 26/125 [00:09<00:13,  7.49it/s] 22%|██▏       | 28/125 [00:09<00:11,  8.32it/s] 24%|██▍       | 30/125 [00:09<00:10,  8.99it/s][rank 1 | step 30] loss=1.3259 grad_norm=0.23810097575187683 learning_rate=0.00038 epoch=0.24
+                                                {'loss': 1.3259, 'grad_norm': 0.23810097575187683, 'learning_rate': 0.00038, 'epoch': 0.24}
+ 24%|██▍       | 30/125 [00:09<00:10,  8.99it/s][rank 0 | step 30] loss=1.3259 grad_norm=0.23810097575187683 learning_rate=0.00038 epoch=0.24
+ 26%|██▌       | 32/125 [00:10<00:09,  9.59it/s] 27%|██▋       | 34/125 [00:10<00:09, 10.08it/s] 29%|██▉       | 36/125 [00:10<00:08, 10.35it/s] 30%|███       | 38/125 [00:10<00:08, 10.53it/s] 32%|███▏      | 40/125 [00:10<00:08, 10.57it/s][rank 1 | step 40] loss=1.3746 grad_norm=0.5795621275901794 learning_rate=0.00034 epoch=0.32
+                                                {'loss': 1.3746, 'grad_norm': 0.5795621275901794, 'learning_rate': 0.00034, 'epoch': 0.32}
+ 32%|███▏      | 40/125 [00:10<00:08, 10.57it/s][rank 0 | step 40] loss=1.3746 grad_norm=0.5795621275901794 learning_rate=0.00034 epoch=0.32
+ 34%|███▎      | 42/125 [00:11<00:07, 10.76it/s] 35%|███▌      | 44/125 [00:11<00:07, 10.66it/s] 37%|███▋      | 46/125 [00:11<00:07, 10.81it/s] 38%|███▊      | 48/125 [00:11<00:07,  9.97it/s] 40%|████      | 50/125 [00:11<00:07, 10.22it/s][rank 1 | step 50] loss=1.3253 grad_norm=0.4484933912754059 learning_rate=0.0003 epoch=0.4
+                                                {'loss': 1.3253, 'grad_norm': 0.4484933912754059, 'learning_rate': 0.0003, 'epoch': 0.4}
+ 40%|████      | 50/125 [00:11<00:07, 10.22it/s][rank 0 | step 50] loss=1.3253 grad_norm=0.4484933912754059 learning_rate=0.0003 epoch=0.4
+ 42%|████▏     | 52/125 [00:11<00:07, 10.41it/s] 43%|████▎     | 54/125 [00:12<00:06, 10.53it/s] 45%|████▍     | 56/125 [00:12<00:06, 10.52it/s] 46%|████▋     | 58/125 [00:12<00:06, 10.73it/s] 48%|████▊     | 60/125 [00:12<00:06,  9.90it/s][rank 1 | step 60] loss=1.3165 grad_norm=0.9867481589317322 learning_rate=0.00026000000000000003 epoch=0.48
+                                                {'loss': 1.3165, 'grad_norm': 0.9867481589317322, 'learning_rate': 0.00026000000000000003, 'epoch': 0.48}
+ 48%|████▊     | 60/125 [00:12<00:06,  9.90it/s][rank 0 | step 60] loss=1.3165 grad_norm=0.9867481589317322 learning_rate=0.00026000000000000003 epoch=0.48
+ 50%|████▉     | 62/125 [00:12<00:06,  9.88it/s] 51%|█████     | 64/125 [00:13<00:06,  9.26it/s] 52%|█████▏    | 65/125 [00:13<00:11,  5.31it/s] 54%|█████▎    | 67/125 [00:13<00:08,  6.46it/s] 55%|█████▌    | 69/125 [00:14<00:07,  7.44it/s][rank 1 | step 70] loss=1.3088 grad_norm=0.6499559283256531 learning_rate=0.00022 epoch=0.56
+                                                {'loss': 1.3088, 'grad_norm': 0.6499559283256531, 'learning_rate': 0.00022, 'epoch': 0.56}
+ 56%|█████▌    | 70/125 [00:14<00:07,  7.44it/s][rank 0 | step 70] loss=1.3088 grad_norm=0.6499559283256531 learning_rate=0.00022 epoch=0.56
+ 57%|█████▋    | 71/125 [00:14<00:06,  8.23it/s] 58%|█████▊    | 73/125 [00:14<00:05,  8.98it/s] 60%|██████    | 75/125 [00:14<00:05,  9.45it/s] 62%|██████▏   | 77/125 [00:14<00:04,  9.96it/s] 63%|██████▎   | 79/125 [00:15<00:04, 10.35it/s][rank 1 | step 80] loss=1.3256 grad_norm=0.6197746992111206 learning_rate=0.00017999999999999998 epoch=0.64
+                                                {'loss': 1.3256, 'grad_norm': 0.6197746992111206, 'learning_rate': 0.00017999999999999998, 'epoch': 0.64}
+ 64%|██████▍   | 80/125 [00:15<00:04, 10.35it/s][rank 0 | step 80] loss=1.3256 grad_norm=0.6197746992111206 learning_rate=0.00017999999999999998 epoch=0.64
+ 65%|██████▍   | 81/125 [00:15<00:04, 10.61it/s] 66%|██████▋   | 83/125 [00:15<00:03, 10.72it/s] 68%|██████▊   | 85/125 [00:15<00:03, 10.14it/s] 70%|██████▉   | 87/125 [00:15<00:03, 10.47it/s] 71%|███████   | 89/125 [00:16<00:03, 10.03it/s][rank 1 | step 90] loss=1.3621 grad_norm=0.7455721497535706 learning_rate=0.00014000000000000001 epoch=0.72
+                                                {'loss': 1.3621, 'grad_norm': 0.7455721497535706, 'learning_rate': 0.00014000000000000001, 'epoch': 0.72}
+ 72%|███████▏  | 90/125 [00:16<00:03, 10.03it/s][rank 0 | step 90] loss=1.3621 grad_norm=0.7455721497535706 learning_rate=0.00014000000000000001 epoch=0.72
+ 73%|███████▎  | 91/125 [00:16<00:06,  5.41it/s] 74%|███████▎  | 92/125 [00:17<00:08,  3.84it/s] 74%|███████▍  | 93/125 [00:17<00:10,  3.10it/s] 76%|███████▌  | 95/125 [00:18<00:08,  3.39it/s] 77%|███████▋  | 96/125 [00:19<00:10,  2.86it/s] 78%|███████▊  | 97/125 [00:19<00:08,  3.31it/s] 78%|███████▊  | 98/125 [00:19<00:09,  2.70it/s] 80%|████████  | 100/125 [00:19<00:06,  3.75it/s][rank 1 | step 100] loss=1.3219 grad_norm=0.690420389175415 learning_rate=0.0001 epoch=0.8
+                                                 {'loss': 1.3219, 'grad_norm': 0.690420389175415, 'learning_rate': 0.0001, 'epoch': 0.8}
+ 80%|████████  | 100/125 [00:19<00:06,  3.75it/s][rank 0 | step 100] loss=1.3219 grad_norm=0.690420389175415 learning_rate=0.0001 epoch=0.8
+ 82%|████████▏ | 102/125 [00:20<00:04,  4.92it/s] 83%|████████▎ | 104/125 [00:20<00:03,  6.00it/s] 85%|████████▍ | 106/125 [00:20<00:02,  7.01it/s] 86%|████████▌ | 107/125 [00:20<00:02,  6.97it/s] 87%|████████▋ | 109/125 [00:20<00:02,  7.87it/s][rank 1 | step 110] loss=1.3587 grad_norm=0.7540241479873657 learning_rate=6e-05 epoch=0.88
+                                                 {'loss': 1.3587, 'grad_norm': 0.7540241479873657, 'learning_rate': 6e-05, 'epoch': 0.88}
+ 88%|████████▊ | 110/125 [00:20<00:01,  7.87it/s][rank 0 | step 110] loss=1.3587 grad_norm=0.7540241479873657 learning_rate=6e-05 epoch=0.88
+ 89%|████████▉ | 111/125 [00:21<00:01,  8.78it/s] 90%|████████▉ | 112/125 [00:21<00:01,  8.95it/s] 90%|█████████ | 113/125 [00:21<00:01,  8.34it/s] 91%|█████████ | 114/125 [00:21<00:02,  4.23it/s] 92%|█████████▏| 115/125 [00:22<00:03,  3.00it/s] 93%|█████████▎| 116/125 [00:23<00:03,  2.44it/s] 94%|█████████▎| 117/125 [00:23<00:03,  2.15it/s] 94%|█████████▍| 118/125 [00:24<00:03,  2.02it/s] 96%|█████████▌| 120/125 [00:24<00:01,  3.20it/s][rank 1 | step 120] loss=1.3642 grad_norm=0.6299733519554138 learning_rate=2e-05 epoch=0.96
+                                                 {'loss': 1.3642, 'grad_norm': 0.6299733519554138, 'learning_rate': 2e-05, 'epoch': 0.96}
+ 96%|█████████▌| 120/125 [00:24<00:01,  3.20it/s][rank 0 | step 120] loss=1.3642 grad_norm=0.6299733519554138 learning_rate=2e-05 epoch=0.96
+ 98%|█████████▊| 122/125 [00:24<00:00,  4.42it/s] 99%|█████████▉| 124/125 [00:24<00:00,  5.64it/s][rank 1 | step 125] train_runtime=24.9964 train_samples_per_second=80.011 train_steps_per_second=5.001 train_loss=1.3406441059112548 epoch=1.0
+                                                 {'train_runtime': 25.0008, 'train_samples_per_second': 79.997, 'train_steps_per_second': 5.0, 'train_loss': 1.3404551029205323, 'epoch': 1.0}
+100%|██████████| 125/125 [00:25<00:00,  5.64it/s][rank 0 | step 125] train_runtime=25.0008 train_samples_per_second=79.997 train_steps_per_second=5.0 total_flos=160536576000.0 train_loss=1.3404551029205323 epoch=1.0
+100%|██████████| 125/125 [00:25<00:00,  5.00it/s]
+
+Accuracy on 512-row slice: 0.256
+
+↪ Example predictions
+
+• Erstad's Double Lifts Angels to Win (AP) AP - Darin Erstad doubled in the go-ahe ...
+  gold=Sports    pred=Sci/Tech
+
+• New Overtime Rules Take Effect New Bush administration rules that scale back ove ...
+  gold=Business  pred=Sci/Tech
+
+• One in four servers to run Linux by 2008 In a report, the research firm painted  ...
+  gold=Sci/Tech  pred=Sci/Tech
+[WARN] tiny test did not produce global_* lines; using fallback
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[RANK 0] INFER global_accuracy=NA
+[RANK 0] INFER global_samples_per_sec=32.350
+[RANK 0] INFER global_tokens_per_sec=679.3

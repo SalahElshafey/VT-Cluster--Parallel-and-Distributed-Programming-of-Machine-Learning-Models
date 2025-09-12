@@ -1,0 +1,68 @@
+[info] JobID=8396 nodes=8 master=hpc39:29500
+[info] PIPELINE_PARALLEL_SIZE=8  MODEL=facebook/opt-2.7b
+[info] DATA_FILE=/data/tiny_openwebtext.txt
+[info] LOGDIR=logs/8396  OUT_ROOT=/home/salahelshafie@student.aast.edu/finetuned
+3: [dbg] node=hpc42 START
+0: [dbg] node=hpc39 START
+7: [dbg] node=hpc46 START
+4: [dbg] node=hpc43 START
+1: [dbg] node=hpc40 START
+6: [dbg] node=hpc45 START
+5: [dbg] node=hpc44 START
+2: [dbg] node=hpc41 START
+0: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+0: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+0: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+0: [dbg] MODEL_NAME=facebook/opt-2.7b
+0: [dbg] MASTER=hpc39:29500
+3: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+3: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+3: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+3: [dbg] MODEL_NAME=facebook/opt-2.7b
+3: [dbg] MASTER=hpc39:29500
+7: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+7: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+7: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+7: [dbg] MODEL_NAME=facebook/opt-2.7b
+7: [dbg] MASTER=hpc39:29500
+4: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+4: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+4: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+4: [dbg] MODEL_NAME=facebook/opt-2.7b
+4: [dbg] MASTER=hpc39:29500
+1: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+1: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+1: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+1: [dbg] MODEL_NAME=facebook/opt-2.7b
+1: [dbg] MASTER=hpc39:29500
+6: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+6: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+6: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+6: [dbg] MODEL_NAME=facebook/opt-2.7b
+6: [dbg] MASTER=hpc39:29500
+2: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+5: [dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+5: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+2: [dbg] DATA_FILE=/data/tiny_openwebtext.txt
+2: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+5: [dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+2: [dbg] MODEL_NAME=facebook/opt-2.7b
+2: [dbg] MASTER=hpc39:29500
+5: [dbg] MODEL_NAME=facebook/opt-2.7b
+5: [dbg] MASTER=hpc39:29500
+1: [2025-09-11 04:43:41,016] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+1: [2025-09-11 04:43:41,130] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+5: [2025-09-11 04:43:41,165] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+5: [2025-09-11 04:43:41,269] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+0: [2025-09-11 04:43:41,355] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+0: [2025-09-11 04:43:41,434] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+4: [2025-09-11 04:43:41,592] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+7: [2025-09-11 04:43:41,630] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+7: [2025-09-11 04:43:41,766] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+4: [2025-09-11 04:43:41,767] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+3: [2025-09-11 04:43:41,945] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+2: [2025-09-11 04:43:41,961] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+2: [2025-09-11 04:43:42,104] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+3: [2025-09-11 04:43:42,111] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+6: [2025-09-11 04:43:42,227] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+6: [2025-09-11 04:43:42,335] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)

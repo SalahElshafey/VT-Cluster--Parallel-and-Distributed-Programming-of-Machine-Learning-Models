@@ -1,0 +1,19 @@
+
+Accuracy on 512-row slice: 0.256
+
+↪ Example predictions
+
+• Erstad's Double Lifts Angels to Win (AP) AP - Darin Erstad doubled in the go-ahe ...
+  gold=Sports    pred=Sci/Tech
+
+• New Overtime Rules Take Effect New Bush administration rules that scale back ove ...
+  gold=Business  pred=Sci/Tech
+
+• One in four servers to run Linux by 2008 In a report, the research firm painted  ...
+  gold=Sci/Tech  pred=Sci/Tech
+[WARN] tiny test did not produce global_* lines; using fallback
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+Setting `pad_token_id` to `eos_token_id`:50256 for open-end generation.
+[RANK 0] INFER global_accuracy=NA
+[RANK 0] INFER global_samples_per_sec=32.350
+[RANK 0] INFER global_tokens_per_sec=679.3

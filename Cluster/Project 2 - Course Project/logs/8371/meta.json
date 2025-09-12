@@ -1,0 +1,1 @@
+{"job_id":"8371","nnodes":8,"stages":8,"data_file":"/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768","ds_cfg":"/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json","seq_len":768,"epochs":1,"batch":1,"accum":64,"lr":"5e-5","master_addr":"hpc39","master_port":"29500"}

@@ -1,0 +1,129 @@
+[SLURM] job=8380 nodes=8 master=hpc39:29500 stages=8
+hpc39
+hpc40
+hpc41
+hpc42
+hpc43
+hpc44
+hpc45
+hpc46
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+[Preflight OK] hpc39
+[Preflight OK] hpc46
+[Preflight OK] hpc40
+[Preflight OK] hpc41
+[Preflight OK] hpc44
+Starting AAST Environment
+[Preflight OK] hpc42
+Starting AAST Environment
+[Preflight OK] hpc45
+[Preflight OK] hpc43
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+Starting AAST Environment
+[Launch] host=hpc39 RANK=0 WORLD=8 STAGES=8
+[dbg] node=hpc39 START
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MASTER=hpc39:29500
+Starting AAST Environment
+[Launch] host=hpc40 RANK=1 WORLD=8 STAGES=8
+[Launch] host=hpc43 RANK=4 WORLD=8 STAGES=8
+Starting AAST Environment
+Starting AAST Environment
+[Launch] host=hpc44 RANK=5 WORLD=8 STAGES=8
+[Launch] host=hpc41 RANK=2 WORLD=8 STAGES=8
+[dbg] node=hpc40 START
+[dbg] node=hpc43 START
+[Launch] host=hpc45 RANK=6 WORLD=8 STAGES=8
+[Launch] host=hpc42 RANK=3 WORLD=8 STAGES=8
+[Launch] host=hpc46 RANK=7 WORLD=8 STAGES=8
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] node=hpc45 START
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MASTER=hpc39:29500
+[dbg] node=hpc42 START
+[dbg] node=hpc46 START
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MASTER=hpc39:29500
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] MASTER=hpc39:29500
+[dbg] MASTER=hpc39:29500
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MASTER=hpc39:29500
+[dbg] node=hpc44 START
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MASTER=hpc39:29500
+[dbg] node=hpc41 START
+[dbg] VENV_ACT=/home/salahelshafie@student.aast.edu/llamaenv_local/bin/activate
+[dbg] DATA_FILE=/home/salahelshafie@student.aast.edu/datasets/openwebtext_tok_opt27b_seq768
+[dbg] DS_CFG=/home/salahelshafie@student.aast.edu/project/Cluster/Project 2 - Course Project/deepspeed_pp_zero1_cpu_activ.json
+[dbg] MODEL_NAME=/home/salahelshafie@student.aast.edu/hf_models/facebook__opt-2.7b
+[dbg] MASTER=hpc39:29500
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[stage] Dataset staged to /tmp/openwebtext_tok_8380
+[2025-09-11 02:39:56,617] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:56,767] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:56,822] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:56,814] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:56,834] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:56,847] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:57,258] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:57,322] [WARNING] [real_accelerator.py:162:get_accelerator] Setting accelerator to CPU. If you have GPU or other accelerator, we were unable to detect it.
+[2025-09-11 02:39:57,376] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,388] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,381] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,390] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,409] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,410] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,458] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[2025-09-11 02:39:57,466] [INFO] [real_accelerator.py:203:get_accelerator] Setting ds_accelerator to cpu (auto detect)
+[R3] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R6] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R6] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R3] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R4] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R1] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R4] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R1] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R0] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R2] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R0] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R2] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R7] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R5] Loading pre-tokenized dataset from disk: /tmp/openwebtext_tok_8380
+[R7] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
+[R5] Detected tokenized dataset (columns: ['attention_mask', 'input_ids'])
