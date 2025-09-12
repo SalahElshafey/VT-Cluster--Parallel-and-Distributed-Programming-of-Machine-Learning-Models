@@ -1,16 +1,3 @@
-Absolutely. Here's an updated and polished version of your `README.md` — tailored to be \*\*professional\*\*, \*\*realistic\*\*, and \*\*transparent\*\* about the cluster access.
-
-
-
-This version includes a clear and respectful note indicating that the HPC cluster is \*\*restricted to authorized users\*\*, and the scripts are provided for demonstration, documentation, and portfolio purposes.
-
-
-
----
-
-
-
-````markdown
 
 \# Fine-Tuning and Parallelization of Large Language Models on HPC Clusters
 
