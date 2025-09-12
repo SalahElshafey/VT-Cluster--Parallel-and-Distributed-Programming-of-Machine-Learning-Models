@@ -1,5 +1,11 @@
 # Fine-Tuning and Parallelization of Large Language Models on HPC Clusters
 
+<p align="center">
+  <img src="assets/AAST.png" alt="AASTMT Logo" height="80">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/vt-logo.png" alt="Virginia Tech Logo" height="80">
+</p>
+
 **Author:** Salaheldin Khaled Salaheldin Amin Elshafey  
 **Email:** [Salahkhaledcx5@gmail.com](mailto:Salahkhaledcx5@gmail.com)  
 **Date:** Summer 2025
@@ -8,7 +14,7 @@
 
 ## Overview
 
-<<<<<<< HEAD
+
 This repository documents two advanced machine learning projects that demonstrate scalable fine-tuning of Large Language Models (LLMs) on a multi-node high-performance computing (HPC) cluster with limited memory per node.
 
 The work implements distributed training and memory-efficient techniques such as:
