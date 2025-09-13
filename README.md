@@ -225,9 +225,8 @@ Email: [Salahkhaledcx5@gmail.com](mailto:Salahkhaledcx5@gmail.com)
 ---
 
 ## License
-
 This project is licensed under the [MIT License](LICENSE).
-=======
+
 This repository documents two advanced machine learning projects that demonstrate scalable fine-tuning of Large Language Models (LLMs) using a distributed high-performance computing (HPC) cluster.
 
 The work focuses on implementing parallelization strategies such as **Distributed Data Parallel (DDP)**, **Model Sharding**, **Pipeline Parallelism**, and **Low-Rank Adaptation (LoRA)** to make large-scale training feasible under constrained hardware environments.
