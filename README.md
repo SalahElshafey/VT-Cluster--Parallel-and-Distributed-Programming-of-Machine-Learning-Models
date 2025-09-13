@@ -163,6 +163,8 @@ pip install -r requirements.txt
 ### Fine-tune DistilGPT2
 
 ```bash
+#Get to workdir
+cd 'Project 1 - Fine Tuning Distilgpt2'
 # Debug run 
 bash submit_distilgpt2_lora.sbatch
 
@@ -171,6 +173,8 @@ bash submit_distilgpt2_lora.sbatch
 ### Fine-tune OPT-2.7B
 
 ```bash
+#Get to workdir
+cd 'Project 2 - Course Project'
 # Distributed fine-tuning with model/pipeline parallelism
 bash submit_opt27b_pp.sbatch
 ```
