@@ -1,9 +1,9 @@
 # Fine-Tuning and Parallelization of Large Language Models on HPC Clusters
 
 <p align="center">
-<img src="assets/Virginia-Tech-Logo.png" alt="Virginia Tech Logo" height="80">
+<img src="assets/Virginia-Tech-Logo.png" alt="Virginia Tech Logo" height="150">
 &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="assets/AAST.png" alt="AASTMT Logo" height="80">
+  <img src="assets/AAST.png" alt="AASTMT Logo" height="150">
     
 </p>
 
@@ -145,12 +145,12 @@ Due to model size and memory constraints (each node has only 8 GB RAM), standard
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/llm-parallel-training.git
-cd llm-parallel-training
+git clone https://github.com/AIBabyTeaching/Cluster.git
+cd project/Cluster
 
 # Set up Python environment
 python3 -m venv env
-source env/bin/activate
+source source ~lamaenv_local/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -163,21 +163,19 @@ pip install -r requirements.txt
 ### Fine-tune DistilGPT2
 
 ```bash
-# Debug run (tiny dataset)
-bash scripts/train_distilgpt2.sh tiny
+# Debug run 
+bash submit_distilgpt2_lora.sbatch
 
-# Benchmark run (medium dataset)
-bash scripts/train_distilgpt2.sh medium
 ```
 
 ### Fine-tune OPT-2.7B
 
 ```bash
 # Distributed fine-tuning with model/pipeline parallelism
-bash scripts/train_opt_2.7b.sh
+bash submit_opt27b_pp.sbatch
 ```
 
-> Scripts assume SLURM or MPI for node orchestration.
+> Scripts assume SLURM for node orchestration.
 
 ---
 
@@ -185,14 +183,12 @@ bash scripts/train_opt_2.7b.sh
 
 Key Python libraries used:
 
-- `transformers`
-- `datasets`
-- `torch`
-- `accelerate`
-- `deepspeed`
-- `peft`
-- `tokenizers`
-- `numpy`, `scipy`, `pandas`
+- `transformers==4.53.2`
+- `datasets==4.0.0`
+- `torch==2.1.0`
+- `accelerate==1.9.0`
+- `tokenizers==0.21.2`
+- `numpy==1.26.4`, `scipy==1.16.0`, `pandas==2.3.1`
 
 See `requirements.txt` for exact versions.
 
@@ -205,7 +201,7 @@ See `requirements.txt` for exact versions.
   - Each node with minimum 8 GB RAM
 - Linux OS
 - Shared file system (e.g., `/data/`)
-- SLURM or MPI job launcher
+- SLURM job launcher
 - Python 3.8+
 
 ---
